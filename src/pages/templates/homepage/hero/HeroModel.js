@@ -1,6 +1,6 @@
-import { SectionObject } from "./BaseModel";
+import { SectionModel } from "@/pages/models/BaseModel";
 
-export class HeroObject extends SectionObject {
+export class HeroModel extends SectionModel {
   template = {
     heading: {
       value: "",

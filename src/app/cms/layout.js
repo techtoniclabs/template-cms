@@ -2,8 +2,8 @@
 
 import { Noto_Sans } from "next/font/google";
 import "@/app/globals.css";
-import Navbar from "@/components/cms/navbar";
-import { ThemeProvider } from "@/components/core/common/theme-provider";
+import Sidebar from "@/cms/components/Sidebar";
+import { ThemeProvider } from "@/core/components/ThemeProvider";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
@@ -22,7 +22,7 @@ export default function CMSLayout({ children }) {
           disableTransitionOnChange
         >
           <main className="flex">
-            <Navbar />
+            <Sidebar />
             <section>{children}</section>
           </main>
         </ThemeProvider>

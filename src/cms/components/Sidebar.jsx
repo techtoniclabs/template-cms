@@ -1,10 +1,16 @@
-import { LayoutTemplate, Megaphone, NotebookPen, Settings } from "lucide-react";
+import {
+  Images,
+  LayoutTemplate,
+  Megaphone,
+  NotebookPen,
+  Settings,
+} from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/core/components/ui/tooltip";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -20,6 +26,11 @@ export const Menus = [
     icon: <NotebookPen className="w-6 h-6" />,
   },
   {
+    href: "/cms/media-library",
+    name: "Media Library",
+    icon: <Images className="w-6 h-6" />,
+  },
+  {
     href: "/cms/campaign",
     name: "Campaign",
     icon: <Megaphone className="w-6 h-6" />,
@@ -31,7 +42,7 @@ export const Menus = [
   },
 ];
 
-export default function Navbar() {
+export default function Sidebar() {
   return (
     <TooltipProvider delayDuration={300}>
       <div className="h-screen w-[60px] flex flex-col bg-slate-800 border-r border-slate-700">

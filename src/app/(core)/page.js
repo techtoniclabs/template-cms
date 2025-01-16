@@ -1,9 +1,9 @@
-import Section from "@/components/core/common/section";
-import { sortItems } from "@/services/helper";
-import { getPagesByType } from "@/services/PageService";
+import Section from "@/pages/templates/common/Section";
+import { sortItems } from "@/core/lib/helper";
+import { getPagesByType } from "@/pages/services/PageService";
 
 export async function getHomepageData() {
-  const { data } = await getPagesByType("homepage");
+  const data = await getPagesByType("homepage");
   const result = { ...data[0], sections: sortItems(data[0].sections) };
 
   return result;

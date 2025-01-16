@@ -12,12 +12,12 @@ export const ErrorCode = {
 };
 
 export function buildErr(code, status, message) {
-  const err = { status: code, data: ErrorCode[code] };
+  const err = { error: { code, message: ErrorCode[code] } };
   if (message) {
     if (message instanceof z.ZodError) {
-      err.data = message.flatten().fieldErrors;
+      err.error.data = message.flatten().fieldErrors;
     } else {
-      err.data = message;
+      err.error.data = message;
     }
   }
 
@@ -25,5 +25,5 @@ export function buildErr(code, status, message) {
 }
 
 export function buildRes(data) {
-  return { data };
+  return Response.json({ data });
 }

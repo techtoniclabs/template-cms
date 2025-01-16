@@ -1,10 +1,10 @@
 "use server";
 
-import { HeroObject } from "@/models/HeroObject";
-import { Button } from "../../ui/button";
+import { HeroModel } from "@/pages/templates/homepage/hero/HeroModel";
+import { Button } from "@/core/components/ui/button";
 
-export default async function Hero({ props }) {
-  const heroSection = new HeroObject(props);
+export default async function HeroSection({ props }) {
+  const heroSection = new HeroModel(props);
 
   return (
     <section className="w-full h-screen lg:h-[60vh] lg:min-h-[540px] flex flex-col justify-center text-center">

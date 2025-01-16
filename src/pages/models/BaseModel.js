@@ -1,6 +1,6 @@
-import { sortItems } from "../services/helper";
+import { sortItems } from "../../core/lib/helper";
 
-export class AttributeObject {
+export class AttributeModel {
   #props = {};
 
   constructor(props) {
@@ -38,7 +38,7 @@ export class AttributeObject {
   }
 }
 
-export class ComponentObject {
+export class ComponentModel {
   #props = {};
 
   constructor(props) {
@@ -57,7 +57,7 @@ export class ComponentObject {
     this.#props.attributes = [];
     if ("attributes" in props) {
       for (const attribute of props.attributes) {
-        this.#props.attributes.push(new AttributeObject(attribute));
+        this.#props.attributes.push(new AttributeModel(attribute));
       }
     }
   }
@@ -119,7 +119,7 @@ export class ComponentObject {
   }
 }
 
-export class SectionObject {
+export class SectionModel {
   #props = {};
 
   constructor(props) {
@@ -139,7 +139,7 @@ export class SectionObject {
     if ("components" in props) {
       props.components = sortItems(props.components);
       for (const component of props.components) {
-        this.#props.components.push(new ComponentObject(component));
+        this.#props.components.push(new ComponentModel(component));
       }
     }
   }
@@ -219,7 +219,7 @@ export class SectionObject {
   }
 }
 
-export class PageObject {
+export class PageModel {
   props = {};
 
   constructor(props) {
