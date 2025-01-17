@@ -1,4 +1,4 @@
-import HeroSection from "../homepage/hero/HeroSection";
+import HeroSection from "@/cms/pages/templates/homepage/hero/HeroSection";
 
 export default function Section({ props }) {
   switch (props.type) {

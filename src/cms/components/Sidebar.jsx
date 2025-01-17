@@ -54,6 +54,7 @@ export default function Sidebar() {
                   src="https://assets.techtoniclabs.id/techtoniclabs-icon.png"
                   height={64}
                   width={64}
+                  alt="Icon"
                 />
               </Link>
             </TooltipTrigger>

@@ -1,6 +1,6 @@
 import { buildErr, buildRes } from "@/core/lib/response";
-import { CreatePageSchema, UpdatePageSchema } from "@/pages/models/schema";
-import { createPage, getPages, updatePage } from "@/pages/services/PageService";
+import { CreatePageSchema } from "@/cms/pages/models/schema";
+import { createPage, getPages } from "@/cms/pages/services/PageService";
 import { getToken } from "next-auth/jwt";
 import { Prisma } from "@prisma/client";
 

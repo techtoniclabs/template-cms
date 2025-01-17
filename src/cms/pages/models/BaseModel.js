@@ -1,4 +1,5 @@
-import { sortItems } from "../../core/lib/helper";
+import { createId } from "@paralleldrive/cuid2";
+import { sortItems } from "@/core/lib/helper";
 
 export class AttributeModel {
   #props = {};
@@ -11,6 +12,31 @@ export class AttributeModel {
     this.#props.id = props.id;
     this.#props.type = props.type;
     this.#props.value = props.value;
+  }
+
+  static getTemplate(componentId, options = {}) {
+    let template = {
+      id: createId(),
+      type: "href",
+      value: "#",
+      componentId,
+    };
+
+    if (options) {
+      template = { ...template, ...options };
+    }
+
+    return template;
+  }
+
+  toObject() {
+    const obj = {
+      id: this.id,
+      type: this.type,
+      value: this.value,
+    };
+
+    return obj;
   }
 
   get id() {
@@ -62,6 +88,26 @@ export class ComponentModel {
     }
   }
 
+  static getTemplate(sectionId, options = {}) {
+    const id = createId();
+    let attributes = [new AttributeModel(AttributeModel.getTemplate(id))];
+
+    let template = {
+      id,
+      type: "heading",
+      index: 0,
+      value: "lorem ipsum",
+      sectionId,
+      attributes,
+    };
+
+    if (options) {
+      template = { ...template, ...options };
+    }
+
+    return template;
+  }
+
   getAttributes(type) {
     for (const attribute of this.#props.attributes) {
       if (attribute.type === type) {
@@ -76,6 +122,18 @@ export class ComponentModel {
         attribute.value = val;
       }
     }
+  }
+
+  toObject() {
+    const obj = {
+      id: this.id,
+      type: this.type,
+      index: this.index,
+      value: this.value,
+      attributes: this.attributes.map((attribute) => attribute.toObject()),
+    };
+
+    return obj;
   }
 
   get id() {
@@ -144,6 +202,25 @@ export class SectionModel {
     }
   }
 
+  static getTemplate(pageId, options = {}) {
+    const id = createId();
+    let components = [new ComponentModel(ComponentModel.getTemplate(id))];
+
+    let template = {
+      id,
+      type: "hero",
+      index: 0,
+      pageId,
+      components,
+    };
+
+    if (options) {
+      template = { ...template, ...options };
+    }
+
+    return template;
+  }
+
   getComponent(id) {
     for (const component of this.#props.components) {
       if (component.id === id) {
@@ -176,6 +253,18 @@ export class SectionModel {
         component.value = val;
       }
     }
+  }
+
+  toObject() {
+    const obj = {
+      id: this.id,
+      type: this.type,
+      index: this.index,
+      tags: this.tags,
+      components: this.components.map((component) => component.toObject()),
+    };
+
+    return obj;
   }
 
   get id() {
@@ -235,6 +324,32 @@ export class PageModel {
     } else {
       this.props.slug = "";
     }
+    this.props.sections = [];
+    if ("sections" in props) {
+      props.sections = sortItems(props.sections);
+      for (const section of props.sections) {
+        this.props.components.push(new SectionModel(section));
+      }
+    }
+  }
+
+  static getTemplate(options = {}) {
+    const id = createId();
+    let sections = [new SectionModel(SectionModel.getTemplate(id))];
+
+    let template = {
+      id,
+      type: "homepage",
+      title: "home",
+      slug: "/",
+      sections,
+    };
+
+    if (options) {
+      template = { ...template, ...options };
+    }
+
+    return template;
   }
 
   getSection(id) {
@@ -269,5 +384,17 @@ export class PageModel {
         section.value = val;
       }
     }
+  }
+
+  toObject() {
+    const obj = {
+      id: this.id,
+      type: this.type,
+      title: this.title,
+      slug: this.slug,
+      sections: this.sections.map((section) => section.toObject()),
+    };
+
+    return obj;
   }
 }

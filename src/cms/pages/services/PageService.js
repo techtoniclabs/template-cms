@@ -1,5 +1,5 @@
-import { PageTypes } from "@/pages/models/schema";
-import { PageRepository } from "@/pages/repositories/PageRepository";
+import { PageTypes } from "@/cms/pages/models/schema";
+import { PageRepository } from "@/cms/pages/repositories/PageRepository";
 import { createId } from "@paralleldrive/cuid2";
 
 export async function checkSlug(pageId, slug) {

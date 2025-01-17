@@ -1,6 +1,6 @@
-import Section from "@/pages/templates/common/Section";
+import Section from "@/cms/pages/templates/common/Section";
 import { sortItems } from "@/core/lib/helper";
-import { getPagesByType } from "@/pages/services/PageService";
+import { getPagesByType } from "@/cms/pages/services/PageService";
 
 export async function getHomepageData() {
   const data = await getPagesByType("homepage");
