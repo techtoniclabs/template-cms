@@ -43,13 +43,7 @@ export async function getPages() {
 }
 
 export async function getPageById(id) {
-  try {
-    const page = await PageRepository.getById(id);
-    return page;
-  } catch (e) {
-    console.error(e);
-    return page;
-  }
+  return PageRepository.getById(id);
 }
 
 export async function getPagesByType(type) {
@@ -62,19 +56,19 @@ export async function getPagesByType(type) {
   }
 }
 
-export async function updatePage(id, title, slug) {
+export async function updatePageContent(content) {
   let page;
   try {
-    page = await getPageById(id);
+    page = await getPageById(content.id);
   } catch (e) {
     throw new Error("ErrUnknown");
   }
 
   if (page.type === PageTypes.Enum.homepage) {
-    slug = "/";
+    content.slug = "/";
   }
 
-  await checkSlug(id, slug);
+  await checkSlug(content.id, content.slug);
 
-  return PageRepository.update(id, title, slug);
+  return PageRepository.updateContent(content);
 }

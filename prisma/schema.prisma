@@ -23,7 +23,7 @@ model Section {
   tags       String?
 
   components Component[]
-  page       Page?       @relation(fields: [pageId], references: [id])
+  page       Page?       @relation(fields: [pageId], references: [id], onDelete: Cascade)
   pageId     String?
 }
 
@@ -34,7 +34,7 @@ model Component {
   value      String?
 
   attributes Attribute[]
-  section    Section     @relation(fields: [sectionId], references: [id])
+  section    Section     @relation(fields: [sectionId], references: [id], onDelete: Cascade)
   sectionId  String
 }
 
@@ -43,6 +43,6 @@ model Attribute {
   type        String
   value       String
 
-  component   Component @relation(fields: [componentId], references: [id])
+  component   Component @relation(fields: [componentId], references: [id], onDelete: Cascade)
   componentId String
 }

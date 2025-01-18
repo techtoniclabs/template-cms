@@ -27,8 +27,10 @@ export class PageRepository extends BaseRepository {
   static async getById(id) {
     return this.db.page.findUniqueOrThrow({
       where: { id },
-      select: {
-        components: true,
+      include: {
+        sections: {
+          include: { components: { include: { attributes: true } } },
+        },
       },
     });
   }
@@ -53,6 +55,60 @@ export class PageRepository extends BaseRepository {
         title,
         slug,
       },
+    });
+  }
+
+  static async updateContent(content) {
+    return this.db.$transaction(async (tx) => {
+      const updated = await tx.page.update({
+        where: {
+          id: content.id,
+        },
+        data: {
+          title: content.title,
+          slug: content.slug,
+        },
+      });
+
+      for (const section of content.sections) {
+        await tx.section.update({
+          where: {
+            id: section.id,
+          },
+          data: {
+            type: section.type,
+            index: section.index,
+            tags: section.tags,
+          },
+        });
+
+        for (const component of section.components) {
+          await tx.component.update({
+            where: {
+              id: component.id,
+            },
+            data: {
+              type: component.type,
+              index: component.index,
+              value: component.value,
+            },
+          });
+
+          for (const attribute of component.attributes) {
+            await tx.attribute.update({
+              where: {
+                id: attribute.id,
+              },
+              data: {
+                type: attribute.type,
+                value: attribute.value,
+              },
+            });
+          }
+        }
+      }
+
+      return updated;
     });
   }
 }
